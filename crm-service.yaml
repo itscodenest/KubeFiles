@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-service
+  labels:
+    app: crm-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crm-service
+  template:
+    metadata:
+      labels:
+        app: crm-service
+    spec:
+      containers:
+      - name: crm-service
+        image: westerntravellers/backend:crm-service
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://34.145.104.167:3306/facebookleadads
+          - name: SPRING_DATASOURCE_USERNAME
+            value: western
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: mypass@123
+          - name: SECURITY_OAUTH2_RESOURCE_TOKEN_INFO_URI
+            value: http://35.193.92.156/oauth/check_token
+        ports:
+        - containerPort: 8089
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: crm-service-svc
+spec:
+  selector:
+    app: crm-service
+  ports:
+  - port: 80
+    targetPort: 8089
+
+   

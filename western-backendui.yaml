@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: westernbackendui
+  labels: 
+    app: westernbackendui
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+        app: westernbackendui
+    
+  template:
+    metadata:
+      labels:
+        app: westernbackendui
+    spec:
+      containers:
+      - name:  westernbackendui
+        image: westerntravellers/back_office_ui:v1
+        imagePullPolicy: Always
+        ports: 
+          - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
+
+     
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: westernbackendui-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: westernbackendui
+  ports:
+  - port: 80
+    targetPort: 80

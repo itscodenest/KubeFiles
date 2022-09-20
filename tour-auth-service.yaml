@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tour-auth-service
+  labels: 
+    app: tour-auth-service
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+        app: tour-auth-service
+    
+  template:
+    metadata:
+      labels:
+        app: tour-auth-service
+    spec:
+      containers:
+      - name:  tour-auth-service
+        image: westerntravellers/backend:jwt-auth
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://34.145.104.167:3306/westerntest
+          - name: SPRING_DATASOURCE_USERNAME
+            value: western
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: mypass@123
+        imagePullPolicy: Always
+        ports: 
+          - containerPort: 9090
+      imagePullSecrets:
+        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tour-auth-service-svc
+spec:
+  selector:
+    app: tour-auth-service
+  ports:
+  - port: 80
+    targetPort: 9090
+
+     
+   

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: activity-service
+  labels:
+    app: activity-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: activity-service
+  template:
+    metadata:
+      labels:
+        app: activity-service
+    spec:
+      containers:
+      - name: activity-service
+        image: westerntravellers/backend:activity
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://34.145.104.167:3306/westernactivity
+          - name: SPRING_DATASOURCE_USERNAME
+            value: western
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: mypass@123
+          - name: SECURITY_OAUTH2_RESOURCE_TOKEN_INFO_URI
+            value: http://35.193.92.156/oauth/check_token
+        ports:
+        - containerPort: 8083
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: activity-service-svc
+spec:
+  selector:
+    app: activity-service
+  ports:
+  - port: 80
+    targetPort: 8083
+
+   

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-service
+  labels:
+    app: order-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+      - name: order-service
+        image: westerntravellers/backend:order-service
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://34.145.104.167:3306/western
+          - name: SPRING_DATASOURCE_USERNAME
+            value: western
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: mypass@123
+          - name: SECURITY_OAUTH2_RESOURCE_TOKEN_INFO_URI
+            value: http://35.193.92.156/oauth/check_token
+        ports:
+        - containerPort: 8086
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service-svc
+spec:
+  selector:
+    app: order-service
+  ports:
+  - port: 80
+    targetPort: 8086
+
+   

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tour-package
+  labels: 
+    app: tour-package
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+        app: tour-package
+    
+  template:
+    metadata:
+      labels:
+        app: tour-package
+    spec:
+      containers:
+      - name:  tour-package
+        image: westerntravellers/backend:tour-package
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://34.145.104.167:3306/western
+          - name: SPRING_DATASOURCE_USERNAME
+            value: western
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: mypass@123
+          - name: SECURITY_OAUTH2_RESOURCE_TOKEN_INFO_URI
+            value: http://35.193.92.156/oauth/check_token
+        imagePullPolicy: Always
+        ports: 
+          - containerPort: 8085
+      imagePullSecrets:
+        - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tour-package-svc
+spec:
+  selector:
+    app: tour-package
+  ports:
+  - port: 80
+    targetPort: 8085
+
+     
+   

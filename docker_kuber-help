@@ -1,0 +1,128 @@
+docker image build:
+spring-boot:build-image
+
+
+clear Eclipse cache:
+C:\Users\HP\eclipse-workspace\.metadata\.plugins\org.eclipse.debug.core\.launches
+
+delete docker image: docker rmi 833baa23f744
+
+
+
+list containers:
+ docker image ls
+
+
+login to bash:
+docker exec -it 2469c0f0f020 bin/bash
+
+
+
+delete stopped containers
+docker rm  $(docker ps -q -a)
+
+
+--build angular--
+ng build --prod
+
+----push to repo----
+
+docker login -u westerndocker
+$ docker build -t westerndocker/westernrepo:western-front-ui .
+
+#docker tag mylocalimage:latest westerndocker/westernrepo:western-front-ui
+
+docker push westerndocker/westernrepo:western-front-ui
+
+
+
+--kubernet appl configs files---
+kubectl apply -f ./
+
+
+
+---check kubernetess kind versions---
+ kubectl explain pod
+
+
+
+
+ "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "8mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "15kb",
+                  "maximumError": "10kb"
+                }
+              ]
+
+---kubestl get information---
+kubectl get all
+
+---check all description---
+kubectl describe deployment.apps/account-service
+
+
+docker pull westerndocker/westernrepo:config-server
+
+----create secret key for private repo----
+
+kubectl create secret docker-registry regcred --docker-server=https://index.docker.io --docker-username=westerndocker --docker-password=dileepsagar0807 --docker-email=dileepsagar678@gmail.com
+
+kubectl get secret regcred --output=yaml
+
+kubectl get secret regcred --output="jsonpath={.data.\.dockerconfigjson}" | base64 --decode
+
+
+
+---kubernets logs----
+kubectl logs -f pod/tour-auth-service-d7cd4cd79-dx9qg
+
+---minikube service list---
+minikube service list
+
+---kubernet delete dep/svc---
+kubectl delete service mysql
+kubectl delete -f registry-service.yaml
+
+
+---login running mysql in kubernetes----
+kubectl exec --stdin --tty pod/mysql-6b85f44d9-rjp2d -c mysql -- /bin/bash
+
+kubectl   exec -i pod/mysql-6b85f44d9-9d52r -- mysql -u root -padmin western < Dump20211222.sql
+
+
+kubectl exec pod/mysql-6b85f44d9-9d52r -- mysqldump -u root -padmin western > western.sql
+
+
+mysql-3306-open
+
+
+
+
+
+
+
+
+
+
+
+
+export const environment = {
+  production: true,
+  authUrl:'http://34.71.121.108/oauth/',
+  accounturl:'http://35.202.17.52/account/',
+  packageurl:'http://35.202.17.52/tourpackage/'
+};
+export const authUrl = `http://34.71.121.108/oauth/` ;//`http://34.71.121.108/oauth/`
+export const accounturl = `http://35.202.17.52/account/`;
+export const packageurl = `http://35.202.17.52/tourpackage/`;
+export const eventUrl = `http://35.202.17.52/events/`;
+
+
+
+

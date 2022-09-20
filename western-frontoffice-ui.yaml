@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: western-front-ui
+  labels: 
+    app: western-front-ui
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+        app: western-front-ui
+    
+  template:
+    metadata:
+      labels:
+        app: western-front-ui
+    spec:
+      containers:
+      - name:  western-front-ui
+        image: westerntravellers/front-end-ui:v1
+        imagePullPolicy: Always
+        ports: 
+          - containerPort: 80
+      imagePullSecrets:
+        - name: regcred
+
+     
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: western-front-ui-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: western-front-ui
+  ports:
+  - port: 80
+    targetPort: 80
+
+---

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-service
+  labels:
+    app: event-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-service
+  template:
+    metadata:
+      labels:
+        app: event-service
+    spec:
+      containers:
+      - name: event-service
+        image: westerntravellers/backend:western-events
+        env:
+          - name: SPRING_DATASOURCE_URL
+            value: jdbc:mysql://34.145.104.167:3306/western
+          - name: SPRING_DATASOURCE_USERNAME
+            value: western
+          - name: SPRING_DATASOURCE_PASSWORD
+            value: mypass@123
+          - name: SECURITY_OAUTH2_RESOURCE_TOKEN_INFO_URI
+            value: http://35.193.92.156/oauth/check_token
+        ports:
+        - containerPort: 8087
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-service-svc
+spec:
+  selector:
+    app: event-service
+  ports:
+  - port: 80
+    targetPort: 8087
+
+   
