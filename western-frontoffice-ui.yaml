@@ -31,11 +31,13 @@ kind: Service
 metadata:
   name: western-front-ui-svc
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: western-front-ui
   ports:
   - port: 80
     targetPort: 80
+    protocol: TCP
 
 ---
+

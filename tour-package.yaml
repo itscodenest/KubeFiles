@@ -20,7 +20,7 @@ spec:
         image: westerntravellers/backend:tour-package
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://34.145.104.167:3306/western
+            value: jdbc:mysql://34.125.70.162:3306/western
           - name: SPRING_DATASOURCE_USERNAME
             value: western
           - name: SPRING_DATASOURCE_PASSWORD

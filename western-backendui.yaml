@@ -31,9 +31,10 @@ kind: Service
 metadata:
   name: westernbackendui-svc
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: westernbackendui
   ports:
   - port: 80
     targetPort: 80
+    protocol: TCP

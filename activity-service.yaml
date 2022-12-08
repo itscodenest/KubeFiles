@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: activity-service
-        image: westerntravellers/backend:activity
+        image: westerntravellers/backend:western-activity
         env:
           - name: SPRING_DATASOURCE_URL
-            value: jdbc:mysql://34.145.104.167:3306/westernactivity
+            value: jdbc:mysql://34.125.70.162:3306/westernactivity
           - name: SPRING_DATASOURCE_USERNAME
             value: western
           - name: SPRING_DATASOURCE_PASSWORD
