@@ -15,4 +15,24 @@ spec:
              name: gateway-service-svc
              port:
                number: 80
+  - host: "backoffice.westerntravellers.com"
+    http:
+      paths:
+       - path: /*
+         pathType: ImplementationSpecific
+         backend:
+          service:
+             name: westernbackendui-svc
+             port:
+               number: 80
+  - host: "www.westerntravellers.com"
+    http:
+      paths:
+       - path: /*
+         pathType: ImplementationSpecific
+         backend:
+          service:
+             name: western-front-ui-svc
+             port:
+               number: 80
      

@@ -25,10 +25,10 @@ spec:
             name: western-front-ui-svc  
             port:
               number: 80
-      - path: /EmployeePortal
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: westernbackendui-svc
-            port:
-              number: 80
+      # - path: /EmployeePortal
+      #   pathType: ImplementationSpecific
+      #   backend:
+      #     service:
+      #       name: westernbackendui-svc
+      #       port:
+      #         number: 80
